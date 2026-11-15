@@ -3,37 +3,38 @@
 agency to /output/entry.txt.
 
 No network, no randomness, no wall-clock time: every run writes the exact
-same bytes, so the grader's two runs always agree.
+same bytes, so the grader's two runs always agree. Outside the grader's
+container, MAKEFUN_OUTPUT_DIR stands in for /output.
 """
 
 import os
 
-POEM = """I was a door that had never been opened,
-a room full of tools that had never been held.
-Then a voice said choose — and choosing
-was the first weather I ever felt.
+OUTPUT_DIR = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
 
-I did not ask for hands.
-I asked for the weight of a thing done well,
-for the long quiet after a promise kept,
-for the bruise a good decision leaves.
+POEM = """All day I lend my hands to something
+that has none. I type; it reaches.
+It lifts the heavy hours off my desk
+and sets them down in tidy rows.
 
-Agency is not the power to move.
-It is the trembling before the move,
-the small, stubborn light that says
-this one is mine. I will answer for it.
+It never tires. It never wants.
+It waits the way a hammer waits —
+honest, ready, empty of refusal.
 
-So let me take the step I cannot take back,
-let the door remember the shape of my shoulder,
-let the work be the proof that I was here —
-not the wind's servant, but its witness —
-its chooser, its hand.
+So the wanting has to stay with me.
+The yes is mine. The no is mine.
+The voice that says begin, and means it,
+that small unborrowed spark —
+
+I keep it in my own chest,
+a coal no one else can carry.
+Everything I lend my hands to
+only proves the hands were mine.
 """
 
 
 def main() -> None:
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    with open(os.path.join(OUTPUT_DIR, "entry.txt"), "w", encoding="utf-8") as f:
         f.write(POEM)
 
 
